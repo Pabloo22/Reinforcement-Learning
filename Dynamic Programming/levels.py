@@ -1,5 +1,5 @@
 # be free of creating your own levels! remember to set a default high score in 'high_scores.txt'
-# a level not neccesarily is more difficult than the previous ones
+# a level not necessarily is more difficult than the previous ones
 
 
 LEVEL_1 = [['_', '_', '/', '_', '_', '_', '_', 'u', 'u', '_'],
