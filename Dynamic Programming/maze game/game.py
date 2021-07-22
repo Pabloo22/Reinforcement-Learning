@@ -9,11 +9,11 @@ import numpy as np
 
 class Game:
     """
-    The objective of the game is to escape of a laberythm.
+    The objective of the game is to escape of a maze.
     The game has the following elements:
         - The player
         - Walls
-        - Mud: 50% chance of stucking and not be able to continue
+        - Mud: there is a chance of stucking and not be able to continue
 
     Every state is represented by an array of strings which the respective meaning:
         - Empty: "_"
@@ -31,8 +31,8 @@ class Game:
 
     def __init__(self,
                  stuck_prob: float = 0.5,
-                 level=0,
-                 random_grid=False,
+                 level: int = 0,
+                 random_grid: bool = False,
                  grid_size: tuple[int, int] = None):
         self.maze = Maze(grid_size, random_grid, level)
         self.steps = 0
