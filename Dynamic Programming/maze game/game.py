@@ -1,10 +1,11 @@
+import numpy as np
 from random import random
 from random import choice
 from time import sleep
 
 from maze import Maze
 
-import numpy as np
+
 
 
 class Game:
@@ -13,7 +14,7 @@ class Game:
     The game has the following elements:
         - The player
         - Walls
-        - Mud: there is a chance of stucking and not be able to continue
+        - Mud: there is a chance of stuck and not be able to continue
 
     Every state is represented by an array of strings which the respective meaning:
         - Empty: "_"
@@ -95,17 +96,17 @@ class Game:
 
         if self.stuck_prob == 0.5 and self.level:
             with open("high_scores.txt", "r") as f:
-                highscores = list(f.read().split(" "))
+                high_scores = list(f.read().split(" "))
 
-            high_score = int(highscores[self.level-1])
+            high_score = int(high_scores[self.level-1])
 
             if self.steps < high_score:
-                print("Congratulations! You have beaten the highscore")
+                print("Congratulations! You have beaten the high-score")
                 print("old high score: " + str(high_score))
                 high_score = str(self.steps)
-                highscores[self.level-1] = high_score
+                high_scores[self.level-1] = high_score
                 with open("high_scores.txt", "w") as f:
-                    txt = " ".join(highscores)
+                    txt = " ".join(high_scores)
                     f.write(txt)
             print("current high score: " + str(high_score))
 

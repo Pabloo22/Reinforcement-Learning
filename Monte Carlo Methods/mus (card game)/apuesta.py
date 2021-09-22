@@ -51,7 +51,3 @@ class Apuesta:
     def pasar(self):
         self.acuerdo = True
         self.n_acciones += 1
-
-
-if __name__ == "__main__":
-    pass

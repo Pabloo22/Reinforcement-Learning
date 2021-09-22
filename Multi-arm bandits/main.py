@@ -1,6 +1,6 @@
+from bandit import Bandit
 from environment import Environment
 from eps_greedy_bandit import EpsBandit
-from bandit import Bandit
 
 
 def main():

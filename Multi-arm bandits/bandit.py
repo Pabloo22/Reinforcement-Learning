@@ -1,6 +1,7 @@
-from environment import Environment
 from abc import abstractmethod
 import numpy as np
+
+from environment import Environment
 
 
 class Bandit:

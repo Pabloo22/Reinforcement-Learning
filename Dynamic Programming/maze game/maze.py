@@ -1,6 +1,7 @@
-import numpy as np
 from copy import deepcopy
+import numpy as np
 from random import choice
+
 from levels import *
 
 

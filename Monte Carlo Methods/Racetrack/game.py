@@ -60,10 +60,12 @@ class Game:
         a_y, a_x = action
         return self.player.is_valid_acceleration(y_0 + a_y, x_0 + a_x)
 
-    def play(self, ai_training=False) -> Union[int, tuple[list[int], list[tuple]]]:
+    def play(self, ai_training=False, epsilon: float = None) -> Union[int, tuple[list[int], list[tuple]]]:
         """
         Reward: -1 per time step, -100 if it crashes
-        :return: the reward
+        :param ai_training: wheter if it is a game use it to train or not
+        :param epsilon: needed for training, the epsilon for the epsilon-greedy policy used for mantain exploration
+        :return: The reward if not training
         """
         reward = 0
 
@@ -72,12 +74,12 @@ class Game:
             if not ai_training:
                 print(self)
                 print(f"current acceleration: {self.player.acceleration}")
-            action = self.player.get_action()
+            action = self.player.get_action(epsilon)
             while not self.is_valid_action(action):
                 if not ai_training:
                     print("velocity can not be more than 5 in any direction neither motionless")
                     print(f"current acceleration: {self.player.acceleration}")
-                action = self.player.get_action()
+                action = self.player.get_action(epsilon)
 
             state = (self.player.position[0], self.player.position[1],
                      self.player.acceleration[0], self.player.acceleration[1])

@@ -1,5 +1,6 @@
-from game import Game
 from agent import DPAgent
+from game import Game
+
 
 
 def compare_agents():

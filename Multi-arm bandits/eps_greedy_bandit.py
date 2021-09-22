@@ -1,8 +1,9 @@
 import numpy as np
-from bandit import Bandit
-from environment import Environment
 from random import random, randint, choice
 from typing import Callable
+
+from bandit import Bandit
+from environment import Environment
 
 
 class EpsBandit(Bandit):

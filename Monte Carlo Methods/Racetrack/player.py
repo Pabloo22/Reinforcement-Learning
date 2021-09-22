@@ -1,4 +1,5 @@
 import abc
+import warnings
 
 
 class Player(abc.ABC):
@@ -17,7 +18,7 @@ class Player(abc.ABC):
         self.acceleration = (y_0 + a_y, x_0 + a_x)
 
     @abc.abstractmethod
-    def get_action(self) -> (tuple[int, int]):
+    def get_action(self, epsilon=None) -> (tuple[int, int]):
         pass
 
     def is_valid_acceleration(self, y, x):
@@ -28,14 +29,25 @@ class Human(Player):
 
     def __init__(self, pos: tuple[int, int]):
         super().__init__(pos)
+        self.warning_printed = False
 
-    def get_action(self) -> (tuple[int, int]):
+    def get_action(self, epsilon=None) -> (tuple[int, int]):
+
+        if epsilon is not None and not self.warning_printed:
+            warnings.warn("\nthe epsilon parameter has no effect with a human player. "
+                          "It is used for training the AI", RuntimeWarning)
+            self.warning_printed = True
 
         y = -2
         while y < -1 or y > 1:
-            y = int(input("Enter the change in vertical velocity (-1, 0 or 1): "))
+            try:
+                y = int(input("Enter the change in vertical velocity (-1, 0 or 1): "))
+            except ValueError:
+                pass
         x = -2
         while x < -1 or x > 1:
-            x = int(input("Enter the change in horizontal velocity (-1, 0 or 1): "))
-
+            try:
+                x = int(input("Enter the change in horizontal velocity (-1, 0 or 1): "))
+            except ValueError:
+                pass
         return y, x
