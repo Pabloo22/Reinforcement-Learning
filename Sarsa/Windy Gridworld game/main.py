@@ -43,6 +43,13 @@ def player_vs_agent(victories=2):
         print(f"Player: {player_wins}, SarsaAgent: {agent_wins}")
 
 
+def book_test():
+    game = WindyGridworldGame(king_moves=True)
+    agent = SarsaAgent(game)
+    agent.train(n_episodes=2000, step_size=0.1, epsilon=0.1)
+    game.play(agent)
+
+
 def main():
     game = WindyGridworldGame(king_moves=True, stochastic_wind=True)
     agent = SarsaAgent(game)
@@ -51,4 +58,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    book_test()

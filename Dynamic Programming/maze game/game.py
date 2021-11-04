@@ -41,6 +41,12 @@ class Game:
         self.level = level
 
     def get_new_pos(self, direction: int, current_pos: tuple[int, int] = None, mud=True) -> tuple[int, int]:
+        """
+        :param direction: 1=left, 2=up, 3=down, 4=right
+        :param current_pos: the current position of the player
+        :param mud: whether the player is in mud
+        :return: the new position of the player
+        """
 
         r, c = self.maze.player_pos if current_pos is None else current_pos
 
@@ -68,7 +74,6 @@ class Game:
     def move(self, direction: int):
         """
         :param direction:  1=left, 2=up, 3=down, 4=right
-        :return: None
         """
         if self.is_finished():
             raise ValueError("The game is over")
@@ -76,13 +81,24 @@ class Game:
         self.steps += 1
 
     def is_valid_pos(self, pos: tuple[int, int]) -> bool:
+        """
+        :param pos: the position to check
+        :return: whether the position is valid
+        """
         r, c = pos
         return (0 <= r < self.maze.size[0]) and (0 <= c < self.maze.size[1]) and self.maze[r][c] != "/"
 
     def is_finished(self):
+        """
+        :return: whether the game is finished
+        """
         return self.maze.exit == self.maze.player_pos
 
     def play(self, policy=None):
+        """
+        play an episode of the game
+        :param policy: the policy to use
+        """
 
         while not self.is_finished():
             print(self)
@@ -111,10 +127,19 @@ class Game:
             print("current high score: " + str(high_score))
 
     def reset(self):
+        """
+        reset the game
+        """
         self.maze.reset()
         self.steps = 0
 
     def evaluate_agent(self, policy, iters=10_000) -> float:
+        """
+        evaluate the performance of the agent
+        :param policy: the policy to use
+        :param iters: the number of iterations to run
+        :return: the average number of steps per episode
+        """
         puntuations = []
 
         for _ in range(iters):
@@ -127,10 +152,18 @@ class Game:
 
     @staticmethod
     def ask_move() -> int:
+        """
+        ask the user for a move
+        :return: the move
+        """
         move = int(input("select movement: 1=left, 2=up, 3=down or 4=right -> "))
         return move
 
     def automatic_move(self, policy):
+        """
+        :param policy: the policy to use
+        :return: the move chosen by the policy
+        """
         r, c = self.maze.player_pos
         return choice(list(policy[r][c]))
 

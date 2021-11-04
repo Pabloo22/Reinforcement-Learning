@@ -7,6 +7,9 @@ from player import Player
 
 
 class MCAgent(Player):
+    """
+    Monte Carlo agent.
+    """
     # inherited attributes:
     position: tuple[int, int]
     acceleration: tuple[int, int]  # [y axis, x axis]  0 <= x,y < 5, velocity != [0, 0]
@@ -35,7 +38,9 @@ class MCAgent(Player):
         self.possible_actions = deepcopy(self.policy)
 
     def filter_not_valid_actions(self):
-
+        """
+        Fill the possible actions array with the valid actions.
+        """
         for a_y, m1 in enumerate(self.policy):
             for a_x, m2 in enumerate(m1):  # shape m1: (5, y, x)
                 for y, m3 in enumerate(m2):  # shape m2: (y, x)
@@ -47,6 +52,11 @@ class MCAgent(Player):
                                     self.possible_actions[a_y][a_x][y][x].remove(action)
 
     def evaluate_agent(self, n_episodes=100):
+        """
+        Evaluate the agent performance.
+        :param n_episodes: number of episodes to play
+        :return: the average score over the episodes
+        """
         avg_reward = 0
         for k in range(1, n_episodes + 1):
             reward, _ = self.game.play(True)
@@ -62,6 +72,16 @@ class MCAgent(Player):
               decrease_epsilon: float = 0.,
               n_policy_iters: int = 10,
               min_epsilon: float = 0.02):
+        """
+        Train the agent.
+        :param n_episodes: number of episodes to play
+        :param rand_start: if True, the agent starts at a random position
+        :param epsilon: the probability of choosing a random action
+        :param discounter: the discount factor
+        :param decrease_epsilon: the decrease of epsilon over the episodes
+        :param n_policy_iters: the number of iterations to update the policy
+        :param min_epsilon: the minimum value of epsilon
+        """
 
         self.filter_not_valid_actions()
         ACTION_NUMBER = {(-1, -1): 0, (-1, 0): 1, (-1, 1): 2,
@@ -125,6 +145,11 @@ class MCAgent(Player):
         self.game.reset()
 
     def get_action(self, epsilon: float = None) -> (tuple[int, int]):
+        """
+        Get the action to perform.
+        :param epsilon: the probability of choosing a random action
+        :return: the action to perform
+        """
         a_y, a_x = self.acceleration
         y, x = self.position
 
@@ -132,6 +157,9 @@ class MCAgent(Player):
             choice(list(self.possible_actions[a_y][a_x][y][x]))
 
     def save_learning(self):
-        np.save("policy.txt", self.policy)
-        np.save("state_action_value.txt", self.state_action_value_array)
-        np.save("counter.txt", self.counter_array)
+        """
+        Save the learning to a file.
+        """
+        np.save("policy", self.policy)
+        np.save("state_action_value", self.state_action_value_array)
+        np.save("counter", self.counter_array)

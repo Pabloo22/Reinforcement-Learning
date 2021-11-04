@@ -5,6 +5,9 @@ from environment import Environment
 
 
 class Bandit:
+    """
+    Abstract class for a bandit.
+    """
 
     env: Environment
     k: int

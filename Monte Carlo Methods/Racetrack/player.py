@@ -3,6 +3,9 @@ import warnings
 
 
 class Player(abc.ABC):
+    """
+    Abstract class for a player.
+    """
 
     position: tuple[int, int]  # [row, col]
     acceleration: tuple[int, int]  # [y axis, x axis]  0 <= x,y < 5, velocity != [0, 0]
@@ -13,6 +16,9 @@ class Player(abc.ABC):
         self.max_speed = 4
 
     def update_accelaration(self, action: tuple[int, int]):
+        """
+        :param action: [y axis, x axis]
+        """
         y_0, x_0 = self.acceleration
         a_y, a_x = action
         self.acceleration = (y_0 + a_y, x_0 + a_x)
@@ -26,12 +32,20 @@ class Player(abc.ABC):
 
 
 class Human(Player):
+    """
+    Human player.
+    """
 
     def __init__(self, pos: tuple[int, int]):
         super().__init__(pos)
         self.warning_printed = False
 
-    def get_action(self, epsilon=None) -> (tuple[int, int]):
+    def get_action(self, epsilon: float = None) -> (tuple[int, int]):
+        """
+        get action from user.
+        :param epsilon: the epsilon value for the epsilon-greedy policy
+        :return: [y axis, x axis]
+        """
 
         if epsilon is not None and not self.warning_printed:
             warnings.warn("\nthe epsilon parameter has no effect with a human player. "

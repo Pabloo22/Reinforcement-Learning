@@ -7,6 +7,9 @@ from environment import Environment
 
 
 class EpsBandit(Bandit):
+    """
+    Epsilon-greedy bandit.
+    """
 
     env: Environment
     estimations: np.ndarray
@@ -25,6 +28,10 @@ class EpsBandit(Bandit):
         self.step_size = (lambda n: 1/n) if step_size is None else step_size
 
     def choose_action(self) -> int:
+        """
+        Choose action by epsilon-greedy strategy.
+        :return: action index
+        """
         if random() > self.epsilon:
             mx = max(self.estimations)
             return choice([i for i in range(self.env.k) if self.estimations[i] == mx])
@@ -32,6 +39,11 @@ class EpsBandit(Bandit):
             return randint(0, self.env.k-1)
 
     def play(self, iters: int = 10_000):
+        """
+        Play the game for given number of iterations.
+        :param iters: number of iterations
+        :return: total reward, best action rate, reward rate
+        """
         total_reward = 0
         n_best_action = 0
         self.env.reset()
@@ -53,6 +65,12 @@ class EpsBandit(Bandit):
         return total_reward, best_action_rate, reward_rate
 
     def avg_results(self, reps: int = 100, iters: int = 10_000):
+        """
+        Average results of given number of repetitions.
+        :param reps: number of repetitions
+        :param iters: number of iterations per repetition
+        :return: total reward, best action rate, reward rate
+        """
 
         total_reward = 0
         total_best_action_rate = 0

@@ -2,6 +2,9 @@ import numpy as np
 
 
 class Environment:
+    """
+    Environment class for Multi-arm bandit problem.
+    """
 
     k: int
     means: np.ndarray
@@ -19,7 +22,11 @@ class Environment:
         self.initial_means = self.means.copy()
 
     def select(self, action: int) -> float:
-        """ returns the reward """
+        """
+        Select an action and return the reward.
+        :param action: the action selected
+        :return: the reward for the selected action
+        """
         mean = self.means[action]
         if self.non_stationary:
             self.means[action] -= 0.04
@@ -29,6 +36,9 @@ class Environment:
         return np.random.normal(mean)
 
     def reset(self):
+        """
+        Reset the environment to its initial state.
+        """
         self.means = self.initial_means.copy()
 
 

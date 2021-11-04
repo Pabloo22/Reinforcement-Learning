@@ -23,29 +23,20 @@ class DPAgent:
         self.reward = -1
         self.gamma = 1
 
-    def train(self, iteration: bool = True, theta: float = 1.):
+    def train(self, iteration: bool = True):
+        """
+        Train the agent
+        :param iteration: if True, use policy iteration, else use policy evaluation
+        """
         if iteration:
             self.__policy_iteration()
         else:
             self.__policy_evaluation()
 
-    def __policy_evaluation(self, theta: float = 1.):
-        delta = float("inf")
-
-        while theta <= delta:
-            new_state_value_array = deepcopy(self.state_value_array)
-            delta = 0
-            for i in range(self.game.maze.size[0]):
-                for j in range(self.game.maze.size[1]):
-                    if self.game.maze[i][j] not in {"/", "X"}:
-                        v = self.state_value_array[i][j]
-                        new_state_value_array[i][j] = self.__compute_new_value(i, j)
-                        delta = max(delta, abs(v - new_state_value_array[i][j]))
-            self.state_value_array = new_state_value_array
-        self.__policy_improvement(theta)
-
-    def __policy_iteration(self):
-
+    def __update_state_value_array(self) -> float:
+        """
+        Update the state value array and return the maximum difference (delta)
+        """
         new_state_value_array = deepcopy(self.state_value_array)
         delta = 0
         for i in range(self.game.maze.size[0]):
@@ -55,9 +46,34 @@ class DPAgent:
                     new_state_value_array[i][j] = self.__compute_new_value(i, j)
                     delta = max(delta, abs(v - new_state_value_array[i][j]))
         self.state_value_array = new_state_value_array
+
+        return delta
+
+    def __policy_evaluation(self, theta: float = 1.):
+        """
+        Policy evaluation
+        :param theta: threshold for convergence
+        """
+        delta = float("inf")
+
+        while theta <= delta:
+            delta = self.__update_state_value_array()
+        self.__policy_improvement(theta)
+
+    def __policy_iteration(self):
+        """
+        Policy iteration
+        """
+        self.__update_state_value_array()
         self.__policy_improvement(iteration=True)
 
     def __compute_new_value(self, i: int, j: int) -> float:
+        """
+        Compute the new value of the state
+        :param i: row
+        :param j: column
+        :return: new value
+        """
         actions = self.policy[i][j]
         sm = 0
         for a in actions:
@@ -69,6 +85,11 @@ class DPAgent:
         return sm
 
     def __policy_improvement(self, theta: float = 0.1, iteration=False):
+        """
+        Policy improvement
+        :param theta: threshold for convergence
+        :param iteration: if True, use policy iteration, else use policy evaluation
+        """
         policy_stable = True
         for i in range(self.game.maze.size[0]):
             for j in range(self.game.maze.size[1]):
@@ -100,11 +121,10 @@ class DPAgent:
                 self.__policy_evaluation(theta)
 
     def move(self, player_pos: tuple[int, int]):
+        """
+        Move the player
+        :param player_pos: player position
+        :return: new player position
+        """
         r, c = player_pos
         return choice(list(self.policy[r][c]))
-
-
-if __name__ == "__main__":
-    agent = DPAgent(Game())
-    agent.train1()
-    print(agent.state_value_array)

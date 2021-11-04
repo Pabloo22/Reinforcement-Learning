@@ -35,7 +35,7 @@ class Grid:
 
     @property
     def width(self):
-        return self.__height
+        return self.__width
 
     @property
     def height(self):

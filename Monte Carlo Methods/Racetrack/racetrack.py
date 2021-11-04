@@ -5,6 +5,7 @@ from levels import *
 
 class Racetrack:
     """
+    Racetrack class.
     The maze is represented by an array of strings which the respective meaning:
         - Empty: "_"
         - Wall: "/"
@@ -22,12 +23,20 @@ class Racetrack:
         self.initial_pos = self.get_initial_pos()
 
     def get_initial_pos(self) -> tuple[int, int]:
+        """
+        Returns the initial position of the player.
+        :return: initial position of the player [i, j]
+        """
         for i, row in enumerate(self.grid):
             for j, value in enumerate(row):
                 if value == "S":
                     return i, j
 
     def load_finish_line(self) -> set[tuple[int, int]]:
+        """
+        Returns the finish line of the maze.
+        :return: set of finish line positions
+        """
         finish_line = set()
         for i, row in enumerate(self.grid):
             for j, value in enumerate(row):
@@ -44,6 +53,11 @@ class Racetrack:
 
     @staticmethod
     def load_grid(level: int) -> list[list[str]]:
+        """
+        Loads the grid from the level.
+        :param level: level of the maze (int)
+        :return: grid of the maze
+        """
         if level == 1:
             return LEVEL_1
         elif level == 2:

@@ -43,19 +43,37 @@ class Game:
         return x_0 + x, y_0 - y
 
     def is_valid_pos(self, pos: tuple[int, int]) -> bool:
+        """
+        Check if the position is valid
+        :param pos: the position to check
+        :return: True if the position is valid, False otherwise
+        """
         r, c = pos
         return (0 <= r < self.racetrack.size[0]) and (0 <= c < self.racetrack.size[1]) and self.racetrack[r][c] != "%"
 
-    def is_finished(self):
+    def is_finished(self) -> bool:
+        """
+        The game is finished when the player reaches the finish line
+        """
         return self.player.position in self.racetrack.finish_line
 
     def move(self):
+        """
+        The player moves according to the acceleration
+        :return: the new position
+        """
         y_0, x_0 = self.player.position
         y, x = self.player.acceleration
         self.racetrack.player_pos = self.player.position
         return y_0 - y, x_0 + x
 
     def is_valid_action(self, action: tuple[int, int], accelaration: tuple[int, int] = None):
+        """
+        Check if the action is valid
+        :param action: the action to check
+        :param accelaration: the current acceleration
+        :return: True if the action is valid, False otherwise
+        """
         y_0, x_0 = self.player.acceleration if accelaration is None else accelaration
         a_y, a_x = action
         return self.player.is_valid_acceleration(y_0 + a_y, x_0 + a_x)
@@ -125,6 +143,9 @@ class Game:
         return reward if not ai_training else (reward, state_action)
 
     def reset(self):
+        """
+        Reset the game
+        """
         self.player.position = self.racetrack.initial_pos
         self.player.acceleration = (1, 0)
         self.steps = 0

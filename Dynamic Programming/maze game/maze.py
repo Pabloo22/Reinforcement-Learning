@@ -25,6 +25,9 @@ class Maze:
         self.exit = (self.size[0] - 1, self.size[1] - 1)
 
     def reset(self):
+        """
+        Resets the maze to its initial state
+        """
         self.player_pos = (0, 0)
 
     @staticmethod
@@ -35,6 +38,11 @@ class Maze:
 
     @staticmethod
     def load_grid(level: int) -> list[list[str]]:
+        """
+        Loads a grid from a file
+        :param level: The level of the grid
+        :return: The grid
+        """
         if level == 1:
             return LEVEL_1
         elif level == 2:

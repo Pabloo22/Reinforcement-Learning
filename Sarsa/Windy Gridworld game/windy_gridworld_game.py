@@ -38,6 +38,10 @@ class WindyGridworldGame:
         return self.__king_moves
 
     def get_new_pos(self, action: int) -> tuple[int, int]:
+        """
+        :param action: 1=left, 2=up, 3=down, 4=right, (5=up-right, 6=down-right, 7=up-left, 8=down-left)
+        :return: new position
+        """
 
         r, c = self.grid.player_pos
 
@@ -46,6 +50,32 @@ class WindyGridworldGame:
             r -= w
         else:
             r -= max(choice([w - 1, w, w + 1]), 0)
+
+        match action:
+            case 1: c -= 1  # left
+            case 2: r -= 1  # up
+            case 3: r += 1  # down
+            case 4: c += 1  # right
+            case _:
+                if self.__king_moves:
+                    match action:
+                        case 5:  # up-right
+                            r -= 1
+                            c += 1
+                        case 6:  # down-right
+                            r += 1
+                            c += 1
+                        case 7:  # up-left
+                            r -= 1
+                            c -= 1
+                        case 8:  # down-left
+                            r += 1
+                            c -= 1
+                        case _:
+                            raise ValueError("direction must be: 1=left, 2=up, 3=down, 4=right, "
+                                             "5=up-right, 6=down-right, 7=up-left, 8=down-left")
+                else:
+                    raise ValueError("direction must be: 1=left, 2=up, 3=down or 4=right")
 
         if action == 2:  # up
             r -= 1
@@ -88,7 +118,7 @@ class WindyGridworldGame:
 
     def move(self, action: int) -> int:
         """
-        :param action:  1=left, 2=up, 3=down, 4=right, (5=up-right, 6=down-right, 7=up-left, 8=down-left)
+        :param action: 1=left, 2=up, 3=down, 4=right, (5=up-right, 6=down-right, 7=up-left, 8=down-left)
         :return: -1, the reward
         """
         if self.is_finished():
@@ -102,6 +132,7 @@ class WindyGridworldGame:
         return self.grid.goal_pos == self.grid.player_pos
 
     def play(self, agent=None, evaluating_agent=False) -> int:
+
         while not self.is_finished():
             if not evaluating_agent:
                 print(self)
