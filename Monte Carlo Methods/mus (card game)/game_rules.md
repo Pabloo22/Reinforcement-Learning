@@ -90,8 +90,8 @@ High or low during pass | 1
 Pair/strong | 1
 Trios (medias) | 2
 Double pairs (duples) | 3
-Mus (Juego) | 2
-Mus of 31 (la una) | 3
+Game (Juego) | 2
+Game of 31 (la una) | 3
 No game or Point (punto) | 1
 
 
