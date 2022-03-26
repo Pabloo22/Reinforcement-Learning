@@ -1,4 +1,4 @@
-# Mus Rules
+# Game Rules
 The following rules are a simplification of the original card game _mus_ in order to be able to implemenent an AI based on 
 Monte Carlo Methods.
 
@@ -44,9 +44,9 @@ Each player, with their 4 cards, can make the following bets:
     * Trio (Medias): when 3 cards are equal.
     * Double pair (Duples): Having 2 pairs.
     
-* **WindyGridworldGame (Juego)**: A player has WindyGridworldGame when the sum of the value of the four cards in their hand is 31 or more, the best 
+* **Game (Juego)**: A player has Game when the sum of the value of the four cards in their hand is 31 or more, the best 
   WindyGridworldGame being 31, followed by 32 and from here it jumps to 40, descending to 37, 36, 35, 34 and 33, which is the worst. 
-  The player with the best WindyGridworldGame wins. If no player has WindyGridworldGame, i.e., if the sum of the value of the cards in each players 
+  The player with the best Game wins. If no player has Game, i.e., if the sum of the value of the cards in each players 
   hand is less than 31, then the bet is to see who has the best Point (punto). The best Point is 30, dropping down to 4, 
   which is the worst.
   
@@ -54,10 +54,10 @@ Each player, with their 4 cards, can make the following bets:
 The “hand” is the first to announce whether they wish to pass, bet (two stones) or make a bigger bet, and the 
 other player in turn must state if they pass, accept the bet or increase it.
 
-The “hand” must announce the bets in the order already established: High, Low, Pairs, WindyGridworldGame or No WindyGridworldGame. In the Pairs bet, 
+The “hand” must announce the bets in the order already established: High, Low, Pairs, Game or No Game. In the Pairs bet, 
 when a player’s turn arrives they say whether or not they have pairs, initiating the bets that, at least, one of the 
-players in each team has Pairs. WindyGridworldGame (Juego) is initiated in the same way, with each player in turning saying WindyGridworldGame 
-“Yes” or “No”. If no one has WindyGridworldGame, bets are made between the players that wish to bet on the best No WindyGridworldGame (No Juego).
+players in each team has Pairs. Game (Juego) is initiated in the same way, with each player in turning saying Game 
+“Yes” or “No”. If no one has Game, bets are made between the players that wish to bet on the best No Game (No Juego).
 
 ### Scoring
 Collection of the bets is governed by the following rules:
@@ -66,13 +66,13 @@ Collection of the bets is governed by the following rules:
   player bets and nobody accepts their bet, this player takes one stone by way of “Deje” (not accepting the bet), which 
   immediately counts towards the score of the game.
   
-* **Pairs and Mus**. If, at the end of the partial game, all the players pass without anybody betting, the player with 
+* **Pairs and Game**. If, at the end of the partial game, all the players pass without anybody betting, the player with 
   the best hand takes its corresponding value, adding these stones to any that may correspond to their partner. If a 
   player bets and no one accepts their bet, a “Deje” stone is immediately taken, and at the end of the partial game the 
   value of their hand is also taken, plus the value of their partner’s, even if their cards were worse than those of any 
   other opponent.
   
-* **No Mus**. If everyone passes and there is no bet, the one with the best Point (Punto) takes a stone. If a player 
+* **No Game**. If everyone passes and there is no bet, the one with the best Point (Punto) takes a stone. If a player 
   bets Point (Punto) and nobody accepts, a “Deje” stone is immediately taken and another can be taken for the Point at 
   the end of the game, even if this was inferior to another player’s Point.
   
