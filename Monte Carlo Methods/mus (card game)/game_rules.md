@@ -1,4 +1,4 @@
-# WindyGridworldGame Rules
+# Mus Rules
 The following rules are a simplification of the original card game _mus_ in order to be able to implemenent an AI based on 
 Monte Carlo Methods.
 
@@ -66,13 +66,13 @@ Collection of the bets is governed by the following rules:
   player bets and nobody accepts their bet, this player takes one stone by way of “Deje” (not accepting the bet), which 
   immediately counts towards the score of the game.
   
-* **Pairs and WindyGridworldGame**. If, at the end of the partial game, all the players pass without anybody betting, the player with 
+* **Pairs and Mus**. If, at the end of the partial game, all the players pass without anybody betting, the player with 
   the best hand takes its corresponding value, adding these stones to any that may correspond to their partner. If a 
   player bets and no one accepts their bet, a “Deje” stone is immediately taken, and at the end of the partial game the 
   value of their hand is also taken, plus the value of their partner’s, even if their cards were worse than those of any 
   other opponent.
   
-* **No WindyGridworldGame**. If everyone passes and there is no bet, the one with the best Point (Punto) takes a stone. If a player 
+* **No Mus**. If everyone passes and there is no bet, the one with the best Point (Punto) takes a stone. If a player 
   bets Point (Punto) and nobody accepts, a “Deje” stone is immediately taken and another can be taken for the Point at 
   the end of the game, even if this was inferior to another player’s Point.
   
